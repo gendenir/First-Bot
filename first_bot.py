@@ -1,8 +1,6 @@
 # Python 3
 import requests
-import my
-import json
-token = my.token
+token = '561799639:AAFY_F5Z5KyFTsxHVrb4NLgUIiesDelKxS0'
 URL = 'https://api.telegram.org/bot' + token + '/'
 
 
@@ -14,11 +12,12 @@ def get_updates():
 
 def get_message():
     data = get_updates()
-    with open('updates.json', 'w') as file:
-         json.dump(data, file, indent=2, ensure_ascii=False)
+    text_message = data['result'][-1]['message']['text']
+    chat_id = data['result'][-1]['message']['chat']['id']
 
-    message = {'chat_id': data['result'][-1]['message']['chat']['id'],
-               'text': data['result'][-1]['message']['text']}
+    message = {'chat_id': chat_id,
+               'text': text_message}
+
     return message
 
 
@@ -28,9 +27,9 @@ def send_message(chat_id, text='Wait a second, please...'):
 
 
 def main():
-    # d = getUpdates()
 
     answer = get_message()
+
     chat_id = answer['chat_id']
     text_message = answer['text']
     send_message(chat_id, text_message)
@@ -39,7 +38,6 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    finally:
+    except KeyboardInterrupt:
         exit()
-
 
