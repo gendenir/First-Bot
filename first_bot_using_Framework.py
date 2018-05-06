@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-
-import conf
 import telebot
 
 
-bot = telebot.TeleBot(conf.token)
+token = '561799639:AAFY_F5Z5KyFTsxHVrb4NLgUIiesDelKxS0'
+
+
+bot = telebot.TeleBot(token)
 
 
 @bot.message_handler(func=lambda message: True, content_types=["text"])
